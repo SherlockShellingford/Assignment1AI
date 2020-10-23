@@ -20,6 +20,14 @@ public class Edge extends DefaultWeightedEdge {
         this.comment = comment;
     }
 
+    public boolean isBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(boolean blocked) {
+        this.blocked = blocked;
+    }
+
     @Override
     public double getWeight() {
         return super.getWeight();
