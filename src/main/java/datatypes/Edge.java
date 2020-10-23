@@ -6,6 +6,8 @@ public class Edge extends DefaultWeightedEdge {
 
     private String comment;
 
+    private boolean blocked;
+
     public Edge() {
         super();
     }
@@ -19,11 +21,27 @@ public class Edge extends DefaultWeightedEdge {
     }
 
     @Override
+    public double getWeight() {
+        return super.getWeight();
+    }
+
+    @Override
+    public Object getSource() {
+        return super.getSource();
+    }
+
+    @Override
+    public Object getTarget() {
+        return super.getTarget();
+    }
+
+    @Override
     public String toString() {
         return "Edge {\n" +
                 "\tsource = " + getSource() + "," +
                 "\ttaget = " + getTarget() + "," +
                 "\tweight = " + getWeight() + "," +
+                "\tblocked = " + blocked + "," +
                 "\tcomment = '" + comment + '\'' +
                 "\n}";
     }
