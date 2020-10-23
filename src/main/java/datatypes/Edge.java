@@ -34,13 +34,13 @@ public class Edge extends DefaultWeightedEdge {
     }
 
     @Override
-    public Object getSource() {
-        return super.getSource();
+    public Vertex getSource() {
+        return (Vertex) super.getSource();
     }
 
     @Override
-    public Object getTarget() {
-        return super.getTarget();
+    public Vertex getTarget() {
+        return (Vertex) super.getTarget();
     }
 
     @Override
