@@ -1,21 +1,23 @@
+import datatypes.Edge;
+import datatypes.Vertex;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultEdge;
 
 public class Perception {
     //Replace DummyVertex with vertex
-    private DummyVertex vertex;
-    private Graph<DummyVertex,> graph;
+    private Vertex vertex;
+    private Graph<Vertex, Edge> graph;
 
-    public Perception(DummyVertex v, Graph g){
+    public Perception(Vertex v, Graph g){
         this.graph=g;
         this.vertex=v;
     }
 
-    public DummyVertex getVertex() {
+    public Vertex getVertex() {
         return vertex;
     }
 
-    public void setVertex(DummyVertex vertex) {
+    public void setVertex(Vertex vertex) {
         this.vertex = vertex;
     }
 

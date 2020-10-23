@@ -1,20 +1,14 @@
 import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Agent {
     //TODO Add State, Goal and Problem classes
-    State currState;
+
     List<Action> seq=new LinkedList<Action>();
     Goal goal=null;
     Problem problemFormulation;
     public abstract Action processNextAction(Perception perception);
 
-    public State getCurrState() {
-        return currState;
-    }
-
-    public void setCurrState(State currState) {
-        this.currState = currState;
-    }
 
     public List<Action> getSeq() {
         return seq;
