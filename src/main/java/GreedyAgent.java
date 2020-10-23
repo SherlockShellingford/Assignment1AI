@@ -10,7 +10,7 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class GreedyAgent extends Agent {
-    Queue<Vertex> currPath=new LinkedBlockingQueue<>();
+    private Queue<Vertex> currPath=new LinkedBlockingQueue<>();
     public GreedyAgent(){
 
     }
@@ -20,20 +20,20 @@ public class GreedyAgent extends Agent {
             DijkstraShortestPath<Vertex, Edge> dijkstra = new DijkstraShortestPath<Vertex, Edge>(perception.getGraph());
             ShortestPathAlgorithm.SingleSourcePaths<Vertex, Edge> paths = dijkstra.getPaths(perception.getVertex());
             Iterator<Vertex> vertexIterator = perception.getGraph().vertexSet().iterator();
-            double minimal = Double.NEGATIVE_INFINITY;
-            Vertex minVertex = null;
+            double minimal = Double.POSITIVE_INFINITY;
+            Vertex minVertex = new Vertex(Integer.MAX_VALUE,Integer.MIN_VALUE);
             while (vertexIterator.hasNext()) {
                 Vertex v = vertexIterator.next();
                 if (!v.equals(perception.getVertex()) && v.getNumberOfPeople() != 0) {
                     double pathWeight = paths.getWeight(v);
-                    if (minimal > pathWeight) {
+                    if (minimal > pathWeight||(minimal==pathWeight&&v.getId()<minVertex.getId())) {
                         minimal = pathWeight;
                         minVertex = v;
                     }
                 }
 
             }
-            if(minimal==Double.NEGATIVE_INFINITY){
+            if(minimal==Double.POSITIVE_INFINITY){
                 return new GraphMovementAction(true);
             }
             GraphPath<Vertex, Edge> goalPath = paths.getPath(minVertex);
