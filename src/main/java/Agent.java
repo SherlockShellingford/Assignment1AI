@@ -1,11 +1,12 @@
 import java.util.LinkedList;
 
 public abstract class Agent {
+    //TODO Add State, Goal and Problem classes
     State currState;
     List<Action> seq=new LinkedList<Action>();
     Goal goal=null;
     Problem problemFormulation;
-    public abstract Action processNextAction(Preception preception);
+    public abstract Action processNextAction(Perception perception);
 
     public State getCurrState() {
         return currState;
