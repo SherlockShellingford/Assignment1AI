@@ -1,16 +1,16 @@
 package datatypes;
 
+import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 public class Edge extends DefaultWeightedEdge {
+    private Integer id;
 
     private String comment;
-
+    private double originalWeight;
     private boolean blocked;
 
-    public Edge() {
-        super();
-    }
+    public Edge(){ super(); }
 
     public String getComment() {
         return comment;
@@ -24,8 +24,24 @@ public class Edge extends DefaultWeightedEdge {
         return blocked;
     }
 
-    public void setBlocked(boolean blocked) {
+    public void setBlocked(boolean blocked, Graph<Vertex, Edge> graph) {
         this.blocked = blocked;
+        if (blocked) {
+            this.originalWeight = getWeight();
+            graph.setEdgeWeight(this, Double.MAX_VALUE);
+        }
+        else {
+            graph.setEdgeWeight(this, this.originalWeight);
+            this.originalWeight = -1;
+        }
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @Override
@@ -46,11 +62,11 @@ public class Edge extends DefaultWeightedEdge {
     @Override
     public String toString() {
         return "Edge {\n" +
-                "\tsource = " + getSource() + "," +
-                "\ttaget = " + getTarget() + "," +
-                "\tweight = " + getWeight() + "," +
-                "\tblocked = " + blocked + "," +
-                "\tcomment = '" + comment + '\'' +
+                "\tid = " + getId() + ",\n" +
+                "\tweight = " + getWeight() + ",\n" +
+                "\tblocked = " + blocked + ",\n" +
+                "\tcomment = '" + comment + ",\n" +
+                "\tvertex = " + super.toString() + "" +
                 "\n}";
     }
 }

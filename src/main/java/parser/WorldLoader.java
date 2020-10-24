@@ -53,6 +53,9 @@ public class WorldLoader {
             if (edgeStringPair.getSecond().equals("comment")) {
                 edgeStringPair.getFirst().setComment(attribute.getValue());
             }
+            if (edgeStringPair.getSecond().toLowerCase().equals("id")) {
+                edgeStringPair.getFirst().setId(Integer.parseInt(attribute.getValue()));
+            }
         });
         importer.setVertexFactory(s -> new Vertex());
         importer.importGraph(graph, new File(jsonFile));
