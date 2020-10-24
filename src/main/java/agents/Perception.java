@@ -1,3 +1,5 @@
+package agents;
+
 import datatypes.Edge;
 import datatypes.Vertex;
 import org.jgrapht.Graph;

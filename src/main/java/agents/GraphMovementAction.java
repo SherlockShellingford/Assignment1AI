@@ -1,3 +1,5 @@
+package agents;
+
 import datatypes.Vertex;
 
 public class GraphMovementAction extends Action{

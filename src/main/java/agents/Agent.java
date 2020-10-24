@@ -1,8 +1,10 @@
+package agents;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Agent {
-    //TODO Add State, Goal and Problem classes
+    //TODO Add agents.State, agents.Goal and agents.Problem classes
 
     List<Action> seq=new LinkedList<Action>();
     Goal goal=null;

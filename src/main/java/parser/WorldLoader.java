@@ -35,6 +35,7 @@ public class WorldLoader {
     }
 
     private WeightedMultigraph<Vertex, Edge> loadGraph() {
+        System.out.println("Loading simulation world....");
         WeightedMultigraph<Vertex, Edge> graph = new WeightedMultigraph<>(Edge.class);
         JSONImporter<Vertex, Edge> importer = new JSONImporter<>();
         importer.addVertexAttributeConsumer((vertexStringPair, attribute) -> {
