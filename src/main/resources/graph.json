@@ -8,9 +8,9 @@
     ],
     "edges": [
         { "id":1, "source": 1, "target": 2, "weight": 1, "comment": "Edge 1 from vertex 1 to vertex 2, weight 1" },
-        { "id":1, "source": 3, "target": 4, "weight": 3, "comment": "Edge 2 from vertex 3 to vertex 4, weight 1" },
-        { "id":1, "source": 2, "target": 3, "weight": 1, "comment": "Edge 3 from vertex 2 to vertex 3, weight 1" },
-        { "id":1, "source": 1, "target": 3, "weight": 4, "comment": "Edge 4 from vertex 1 to vertex 3, weight 4" },
-        { "id":1, "source": 2, "target": 4, "weight": 5, "comment": "Edge 5 from vertex 2 to vertex 4, weight 5" }
+        { "id":2, "source": 3, "target": 4, "weight": 3, "comment": "Edge 2 from vertex 3 to vertex 4, weight 1" },
+        { "id":3, "source": 2, "target": 3, "weight": 1, "comment": "Edge 3 from vertex 2 to vertex 3, weight 1" },
+        { "id":4, "source": 1, "target": 3, "weight": 4, "comment": "Edge 4 from vertex 1 to vertex 3, weight 4" },
+        { "id":5, "source": 2, "target": 4, "weight": 5, "comment": "Edge 5 from vertex 2 to vertex 4, weight 5" }
     ]
 }
