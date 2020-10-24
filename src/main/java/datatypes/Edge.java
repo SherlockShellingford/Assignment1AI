@@ -28,7 +28,7 @@ public class Edge extends DefaultWeightedEdge {
         this.blocked = blocked;
         if (blocked) {
             this.originalWeight = getWeight();
-            graph.setEdgeWeight(this, Double.MAX_VALUE);
+            graph.setEdgeWeight(this, Double.POSITIVE_INFINITY);
         }
         else {
             graph.setEdgeWeight(this, this.originalWeight);
