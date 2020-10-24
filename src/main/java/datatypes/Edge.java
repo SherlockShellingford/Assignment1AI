@@ -8,9 +8,11 @@ public class Edge extends DefaultWeightedEdge {
 
     private String comment;
     private double originalWeight;
-    private boolean blocked;
+    private boolean blocked=false;
 
     public Edge(){ super(); }
+
+    public Edge(Integer id){ super(); this.id=id; }
 
     public String getComment() {
         return comment;

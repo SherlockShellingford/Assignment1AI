@@ -26,7 +26,7 @@ public class GreedyAgent extends Agent {
             Vertex minVertex = new Vertex(Integer.MAX_VALUE,Integer.MIN_VALUE);
             while (vertexIterator.hasNext()) {
                 Vertex v = vertexIterator.next();
-                if (!v.equals(perception.getVertex()) && v.getNumberOfPeople() != 0) {
+                if (v.getNumberOfPeople() != 0) {
                     double pathWeight = paths.getWeight(v);
                     if (minimal > pathWeight||(minimal==pathWeight&&v.getId()<minVertex.getId())) {
                         minimal = pathWeight;
@@ -42,9 +42,7 @@ public class GreedyAgent extends Agent {
             List<Vertex> pathList = goalPath.getVertexList();
             for (Vertex v : pathList
             ) {
-                if (!v.equals(perception.getVertex())) {
-                    currPath.add(v);
-                }
+                currPath.add(v);
             }
 
         }
