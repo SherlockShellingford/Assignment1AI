@@ -42,9 +42,14 @@ public class GreedyAgent extends Agent {
             List<Vertex> pathList = goalPath.getVertexList();
             for (Vertex v : pathList
             ) {
-                currPath.add(v);
+                if (!v.equals(perception.getVertex())) {
+                    currPath.add(v);
+                }
             }
 
+            if(currPath.isEmpty()){
+                return new agents.GraphMovementAction(perception.getVertex());
+            }
         }
 
         return new GraphMovementAction(currPath.poll());

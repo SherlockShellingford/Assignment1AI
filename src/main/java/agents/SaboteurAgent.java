@@ -7,11 +7,10 @@ import java.util.Set;
 
 public class SaboteurAgent extends Agent {
     private boolean sabotageTurn=true;
-    @Override
-    public Action processNextAction(Perception perception) {
+
+    public GraphMovementAction processNextAction(Perception perception) {
         if(sabotageTurn) {
             Set<Edge> neighbors = perception.getGraph().edgesOf(perception.getVertex());
-            System.out.println("The neighbors are:");
 
             Iterator<Edge> it = neighbors.iterator();
             int currIndex = 0;
@@ -20,7 +19,7 @@ public class SaboteurAgent extends Agent {
             while (it.hasNext()) {
                 Edge e = it.next();
                 double weight = e.getWeight();
-                if (minimal > weight || (minimal == weight && (e.getId() < toBlock.getId() || toBlock == null))) {
+                if (minimal > weight || (minimal == weight && (toBlock == null || e.getId() < toBlock.getId()))) {
                     minimal = weight;
                     toBlock = e;
                 }
@@ -35,7 +34,6 @@ public class SaboteurAgent extends Agent {
         }
         else{
             Set<Edge> neighbors = perception.getGraph().edgesOf(perception.getVertex());
-            System.out.println("The neighbors are:");
 
             Iterator<Edge> it = neighbors.iterator();
             int currIndex = 0;
@@ -44,7 +42,7 @@ public class SaboteurAgent extends Agent {
             while (it.hasNext()) {
                 Edge e = it.next();
                 double weight = e.getWeight();
-                if (minimal > weight || (minimal == weight && (e.getId() < next.getId() || next == null))) {
+                if (minimal > weight || (minimal == weight && (next == null) || e.getId() < next.getId() )) {
                     minimal = weight;
                     next = e;
                 }
