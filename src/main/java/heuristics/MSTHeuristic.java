@@ -6,6 +6,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.alg.spanning.KruskalMinimumSpanningTree;
 import org.jgrapht.graph.DefaultUndirectedWeightedGraph;
 
+import java.util.Map;
 import java.util.Set;
 
 public class MSTHeuristic implements Heuristic {
@@ -32,7 +33,7 @@ public class MSTHeuristic implements Heuristic {
     }
 
     @Override
-    public double h(Vertex source, Vertex target) {
+    public double h(Vertex source, Vertex target, Map<Integer, Long> vertexTime) {
         if (g.getEdge(source, target) == null) {
             return Double.POSITIVE_INFINITY;
         }

@@ -61,7 +61,7 @@ public class GreedyHeuristicAgent extends Agent {
             Edge edge = null;
             double min = Double.POSITIVE_INFINITY;
             for (Edge e : this.internal.edgesOf(state.getCurrentVertex())) {
-                double h = heuristic.h(e.getSource(), e.getTarget());
+                double h = heuristic.h(e.getSource(), e.getTarget(), vertexTime);
                 if (h < min) {
                     edge = e;
                     min = h;
