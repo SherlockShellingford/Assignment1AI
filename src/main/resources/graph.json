@@ -1,5 +1,5 @@
 {
-    "timeout": 4.5,
+    "timeout": 5,
     "nodes": [
         { "id": 1,  "numberOfPeople": 0, "comment":  "Vertex 1, nothing of interest"},
         { "id": 2, "numberOfPeople": 1, "comment":  "Vertex 2, initially contains 1 person to be rescued"},

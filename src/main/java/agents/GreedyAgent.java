@@ -55,4 +55,9 @@ public class GreedyAgent extends Agent {
         return new GraphMovementAction(currPath.poll());
 
     }
+
+    @Override
+    public void updateState(Action action) {
+
+    }
 }

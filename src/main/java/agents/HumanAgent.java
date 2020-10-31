@@ -51,4 +51,9 @@ public GraphMovementAction processNextAction(Perception perception){
 
 
 }
+
+    @Override
+    public void updateState(Action action) {
+
+    }
 }
