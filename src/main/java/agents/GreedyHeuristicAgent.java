@@ -61,6 +61,10 @@ public class GreedyHeuristicAgent extends Agent {
             Edge edge = null;
             double min = Double.POSITIVE_INFINITY;
             for (Edge e : this.internal.edgesOf(state.getCurrentVertex())) {
+                Long time = vertexTime.getOrDefault(e.getSource().getId(), 1l);
+                vertexTime.put(e.getSource().getId(), time++);
+                time = vertexTime.getOrDefault(e.getTarget().getId(), 1l);
+                vertexTime.put(e.getTarget().getId(), time++);
                 double h = heuristic.h(e.getSource(), e.getTarget(), vertexTime);
                 if (h < min) {
                     edge = e;
@@ -69,8 +73,15 @@ public class GreedyHeuristicAgent extends Agent {
             }
             currentPath = new ArrayList<>(edgeMap.get(edge).getEdgeList());
         }
-        Edge e = currentPath.get(0);
-        System.out.println(currentPath.get(0));
+        int index = 0;
+        for (int i=0;i<currentPath.size();i++) {
+            if (currentPath.get(i).getSource().equals(state.getCurrentVertex())) {
+                index = i;
+                break;
+            }
+        }
+        Edge e = currentPath.get(index);
+        System.out.println(currentPath.get(index));
         currentPath.remove(e);
         return new GraphMovementAction(e.getTarget().equals(state.getCurrentVertex()) ? e.getSource() : e.getTarget());
     }
@@ -79,8 +90,7 @@ public class GreedyHeuristicAgent extends Agent {
     public void updateState(Action action) {
         Vertex v = ((GraphMovementAction)action).getToVertex();
         v.setNumberOfPeople(0);
-        Long time = vertexTime.getOrDefault(v.getId(), 0l);
-        vertexTime.put(v.getId(), time++);
+        this.getSeq().add(action);
         this.state = new State(v, null, 0);
     }
 

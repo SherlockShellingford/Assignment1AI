@@ -40,7 +40,7 @@ public class MSTHeuristic implements Heuristic {
         if (target.getNumberOfPeople() > 0) {
             return 0;
         }
-        return normalize/vertexTime.get(target.getId());
+        return normalize/ (vertexTime.get(target.getId()) != null ? vertexTime.get(target.getId()) : 1 );
     }
 
 }

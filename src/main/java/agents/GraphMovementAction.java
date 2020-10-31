@@ -30,4 +30,12 @@ public class GraphMovementAction extends Action{
     public void setTerminate(boolean terminate) {
         this.terminate = terminate;
     }
+
+    @Override
+    public String toString() {
+        return "GraphMovementAction {\n" +
+                "\ttoVertex = " + toVertex +
+                ", \n\tterminate = " + terminate +
+                "\n}";
+    }
 }

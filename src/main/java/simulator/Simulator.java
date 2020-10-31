@@ -6,6 +6,7 @@ import environment.EnvironmentState;
 
 public class Simulator {
 
+    boolean terminate = false;
     public void start() {
         do {
             for (Agent a : EnvironmentState.getInstance().getAgents()) {
@@ -15,7 +16,10 @@ public class Simulator {
                 a.updateState(action);
                 // TODO update state
                 if (a.getGoal().isGoalSucceeded()) {
-                    break;
+                    terminate = true;
+                    for (Action aa : a.getSeq()) {
+                        System.out.println(aa);
+                    }
                 }
             }
         }while (!needTermination());
@@ -23,6 +27,6 @@ public class Simulator {
     }
 
     private boolean needTermination() {
-        return false;
+        return terminate;
     }
 }
