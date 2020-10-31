@@ -60,4 +60,9 @@ public class SaboteurAgent extends Agent {
             }
         }
     }
+
+    @Override
+    public void updateState(Action action) {
+
+    }
 }

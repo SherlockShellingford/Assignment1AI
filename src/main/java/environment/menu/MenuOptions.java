@@ -2,6 +2,7 @@ package environment.menu;
 
 import agents.AgentsFactory;
 import environment.Environment;
+import environment.EnvironmentState;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,8 +25,8 @@ public class MenuOptions {
                 System.out.print("Please enter number of agents: ");
                 Scanner s = new Scanner(System.in);
                 int numberOfAgents = s.nextInt();
-                e.setNumberOfAgents(numberOfAgents);
-                e.setAgents(new ArrayList<>());
+                EnvironmentState.getInstance().setNumberOfAgents(numberOfAgents);
+                EnvironmentState.getInstance().setAgents(new ArrayList<>());
                 e.startAgentsCreateMenu();
             }
         },
@@ -37,7 +38,8 @@ public class MenuOptions {
             @Override
             public void perform(Environment e) {
                 System.out.println("Starting simulation...");
-                if (e.getNumberOfAgents() == 0 || e.getAgents().size() == 0) {
+                EnvironmentState state = EnvironmentState.getInstance();
+                if (state.getNumberOfAgents() == 0 || state.getAgents().size() == 0) {
                     System.out.println("You don't have active agents");
                 }
                 else {
@@ -67,7 +69,7 @@ public class MenuOptions {
             @Override
             public void perform(Environment e) {
                 System.out.println("Creating human agent");
-                e.getAgents().add(AgentsFactory.createHumanAgent());
+                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createHumanAgent());
             }
         },
         CreateGreedyAgent {
@@ -78,7 +80,7 @@ public class MenuOptions {
             @Override
             public void perform(Environment e) {
                 System.out.println("Creating greedy agent");
-                e.getAgents().add(AgentsFactory.createGreedyAgent());
+                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createGreedyAgent());
             }
         },
         CreateSaboteurAgent {
@@ -89,7 +91,7 @@ public class MenuOptions {
             @Override
             public void perform(Environment e) {
                 System.out.println("Creating Saboteur agent");
-                e.getAgents().add(AgentsFactory.createSaboteurAgent());
+                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createSaboteurAgent());
             }
         },
         Exit {

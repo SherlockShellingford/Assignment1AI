@@ -4,13 +4,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Agent {
-    //TODO Add agents.State, agents.Goal and agents.Problem classes
 
-    List<Action> seq=new LinkedList<Action>();
-    Goal goal=null;
-    Problem problemFormulation;
+    protected List<Action> seq = new LinkedList<>();
+    protected Goal goal;
+    protected Problem problemFormulation;
+    protected boolean failed;
+    protected State state;
+
     public abstract Action processNextAction(Perception perception);
-
+    public abstract void updateState(Action action);
 
     public List<Action> getSeq() {
         return seq;
@@ -34,5 +36,21 @@ public abstract class Agent {
 
     public void setProblemFormulation(Problem problemFormulation) {
         this.problemFormulation = problemFormulation;
+    }
+
+    public boolean isFailed() {
+        return failed;
+    }
+
+    public void setFailed(boolean failed) {
+        this.failed = failed;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

@@ -1,4 +1,5 @@
 package agents;
 
-public class Goal {
+public interface Goal {
+    boolean isGoalSucceeded();
 }
