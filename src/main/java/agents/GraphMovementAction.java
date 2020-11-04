@@ -4,10 +4,8 @@ import datatypes.Vertex;
 
 public class GraphMovementAction extends Action{
     private Vertex toVertex;
-
-
-
     private boolean terminate=false;
+
     public GraphMovementAction(Vertex toVertex) {
         this.toVertex = toVertex;
     }

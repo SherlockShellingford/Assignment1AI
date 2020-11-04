@@ -1,5 +1,6 @@
 package heuristics;
 
+import agents.State;
 import datatypes.Edge;
 import datatypes.Vertex;
 import org.jgrapht.Graph;
@@ -40,7 +41,18 @@ public class MSTHeuristic implements Heuristic {
         if (target.getNumberOfPeople() > 0) {
             return 0;
         }
-        return normalize/ (vertexTime.get(target.getId()) != null ? vertexTime.get(target.getId()) : 1 );
+        return normalize / (vertexTime.get(target.getId()) != null ? vertexTime.get(target.getId()) : 1 );
     }
 
+
+    @Override
+    public double h(State source, State target, Map<Integer, Long> vertexTime) {
+        if (g.getEdge(source.getCurrentVertex(), target.getCurrentVertex()) == null) {
+            return Double.POSITIVE_INFINITY;
+        }
+        if (!source.getVisited().contains(target.getCurrentVertex())) {
+            return 0;
+        }
+        return normalize / (vertexTime.get(target.getCurrentVertex().getId()) != null ? vertexTime.get(target.getCurrentVertex().getId()) : 1 );
+    }
 }

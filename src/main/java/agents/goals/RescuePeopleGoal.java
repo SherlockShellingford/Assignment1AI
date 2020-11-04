@@ -1,6 +1,5 @@
 package agents.goals;
 
-import agents.Goal;
 import datatypes.Edge;
 import datatypes.Vertex;
 import environment.EnvironmentState;

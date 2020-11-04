@@ -1,5 +1,7 @@
 package agents;
 
+import agents.goals.Goal;
+
 import java.util.LinkedList;
 import java.util.List;
 

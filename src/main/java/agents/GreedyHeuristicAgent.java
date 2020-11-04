@@ -21,7 +21,6 @@ public class GreedyHeuristicAgent extends Agent {
     private Heuristic heuristic;
 
     public GreedyHeuristicAgent(Graph<Vertex, Edge> g, Vertex init) {
-        this.state = new State(init, null, 0);
         internal = new DefaultDirectedWeightedGraph<>(Edge.class);
         edgeMap = new HashMap<>();
         List<Vertex> verticesInGraph = new LinkedList<>();
@@ -50,7 +49,7 @@ public class GreedyHeuristicAgent extends Agent {
             }
         }
         this.heuristic = new MSTHeuristic(internal);
-
+        this.state = new State(init, null, 0, vertexTime);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class GreedyHeuristicAgent extends Agent {
         Vertex v = ((GraphMovementAction)action).getToVertex();
         v.setNumberOfPeople(0);
         this.getSeq().add(action);
-        this.state = new State(v, null, 0);
+        this.state = new State(v, null, 0, vertexTime);
     }
 
     public Graph<Vertex, Edge> getInternal() {
