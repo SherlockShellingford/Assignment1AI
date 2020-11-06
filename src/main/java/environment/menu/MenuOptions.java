@@ -1,6 +1,8 @@
 package environment.menu;
 
+import agents.Agent;
 import agents.AgentsFactory;
+import agents.goals.RescuePeopleGoal;
 import environment.Environment;
 import environment.EnvironmentState;
 
@@ -35,15 +37,16 @@ public class MenuOptions {
             public String toString() {
                 return this.ordinal() + 1 + ". Start simulation";
             }
+
             @Override
             public void perform(Environment e) {
                 System.out.println("Starting simulation...");
                 EnvironmentState state = EnvironmentState.getInstance();
                 if (state.getNumberOfAgents() == 0 || state.getAgents().size() == 0) {
                     System.out.println("You don't have active agents");
-                }
-                else {
+                } else {
                     e.getSimulator().start();
+                    state.setGraph(Environment.getGraph());
                 }
             }
         },
@@ -52,6 +55,7 @@ public class MenuOptions {
             public String toString() {
                 return this.ordinal() + 1 + ". Exit";
             }
+
             @Override
             public void perform(Environment e) {
                 e.setShutdown(true);
@@ -61,37 +65,79 @@ public class MenuOptions {
     }
 
     public enum AgentActionOptions implements MenuAction {
-        CreateHumanAgent {
+        //        CreateHumanAgent {
+//            @Override
+//            public String toString() {
+//                return this.ordinal() + 1 + ". Create Human Agent";
+//            }
+//            @Override
+//            public void perform(Environment e) {
+//                System.out.println("Creating human agent");
+//                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createHumanAgent());
+//            }
+//        },
+//        CreateGreedyAgent {
+//            @Override
+//            public String toString() {
+//                return this.ordinal() + 1 + ". Create Greedy Agent";
+//            }
+//            @Override
+//            public void perform(Environment e) {
+//                System.out.println("Creating greedy agent");
+//                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createGreedyAgent());
+//            }
+//        },
+//        CreateSaboteurAgent {
+//            @Override
+//            public String toString() {
+//                return this.ordinal() + 1 + ". Create Saboteur Agent";
+//            }
+//            @Override
+//            public void perform(Environment e) {
+//                System.out.println("Creating Saboteur agent");
+//                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createSaboteurAgent());
+//            }
+//        },
+        CreateGreedySearchAgent {
             @Override
             public String toString() {
-                return this.ordinal() + 1 + ". Create Human Agent";
+                return this.ordinal() + 1 + ". Create Greedy Search Agent";
             }
+
             @Override
             public void perform(Environment e) {
-                System.out.println("Creating human agent");
-                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createHumanAgent());
+                System.out.println("Creating Greedy Search Agent");
+                Agent a = AgentsFactory.createGreedySearchAgent();
+                a.setGoal(new RescuePeopleGoal());
+                EnvironmentState.getInstance().getAgents().add(a);
             }
         },
-        CreateGreedyAgent {
+        CreateAStarSearchAgent {
             @Override
             public String toString() {
-                return this.ordinal() + 1 + ". Create Greedy Agent";
+                return this.ordinal() + 1 + ". Create A* Search Agent";
             }
+
             @Override
             public void perform(Environment e) {
-                System.out.println("Creating greedy agent");
-                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createGreedyAgent());
+                System.out.println("Creating A* Search Agent");
+                Agent a = AgentsFactory.createAStarSearchAgent();
+                a.setGoal(new RescuePeopleGoal());
+                EnvironmentState.getInstance().getAgents().add(a);
             }
         },
-        CreateSaboteurAgent {
+        CreateRealTimeAStarSearchAgent {
             @Override
             public String toString() {
-                return this.ordinal() + 1 + ". Create Saboteur Agent";
+                return this.ordinal() + 1 + ". Create Real Time A* Search Agent";
             }
+
             @Override
             public void perform(Environment e) {
-                System.out.println("Creating Saboteur agent");
-                EnvironmentState.getInstance().getAgents().add(AgentsFactory.createSaboteurAgent());
+                System.out.println("Creating Real Time A* Search Agent");
+                Agent a = AgentsFactory.createRealTimeAStarSearchAgent();
+                a.setGoal(new RescuePeopleGoal());
+                EnvironmentState.getInstance().getAgents().add(a);
             }
         },
         Exit {
@@ -99,6 +145,7 @@ public class MenuOptions {
             public String toString() {
                 return this.ordinal() + 1 + ". Exit";
             }
+
             @Override
             public void perform(Environment e) {
                 e.setShutdown(true);

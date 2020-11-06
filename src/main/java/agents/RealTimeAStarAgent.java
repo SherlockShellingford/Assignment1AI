@@ -14,9 +14,9 @@ import org.jgrapht.graph.DefaultDirectedWeightedGraph;
 
 import java.util.*;
 
-public class AStarAgent extends Agent {
+public class RealTimeAStarAgent extends Agent {
 
-    private static final int MAX_TIME = 10000;
+    private static final int MAX_TIME = 10;
 
     private Graph<Vertex, Edge> internal;
     private Map<Integer, Long> vertexTime = new HashMap<>();
@@ -24,7 +24,7 @@ public class AStarAgent extends Agent {
     private List<Edge> currentPath;
     private Heuristic heuristic;
 
-    public AStarAgent(Graph<Vertex, Edge> g, Vertex init) {
+    public RealTimeAStarAgent(Graph<Vertex, Edge> g, Vertex init) {
         this.state = new State(init, vertexTime, Arrays.asList(init));
         internal = new DefaultDirectedWeightedGraph<>(Edge.class);
         List<Vertex> verticesInGraph = new LinkedList<>();
@@ -60,12 +60,12 @@ public class AStarAgent extends Agent {
         childFather.put(this.state, this.state);
         Map<State, Double> pathWeight = new HashMap<>();
         PriorityQueue<State> open = new PriorityQueue<>((state1, state2) -> {
-            if (childFather.get(state1) == null) {
-                return 1;
-            }
-            if (childFather.get(state2) == null) {
-                return -1;
-            }
+//            if (childFather.get(state1) == null) {
+//                return 1;
+//            }
+//            if (childFather.get(state2) == null) {
+//                return -1;
+//            }
             double fState1 = f(pathWeight.getOrDefault(state1, 0.0), this.heuristic.h(this.state, state1, state1.getVertexTime()));
             double fState2 = f(pathWeight.getOrDefault(state2, 0.0), this.heuristic.h(this.state, state2, state2.getVertexTime()));
             if ( fState1 > fState2) return 1;
@@ -84,12 +84,9 @@ public class AStarAgent extends Agent {
             }
             this.state = open.poll();
             if (this.state.getVisited().size() == internal.vertexSet().size()) {
-                System.out.println("Found path");
                 break;
             }
             if (count >= MAX_TIME) {
-                System.out.println("Failed");
-                closed = null;
                 break;
             }
             closed.add(this.state);
@@ -115,7 +112,7 @@ public class AStarAgent extends Agent {
             List<Vertex> visited = new ArrayList<>(s.getVisited());
             visited.add(e.getTarget().equals(s.getCurrentVertex()) ? e.getSource() : e.getTarget());
             State state = new State(e.getTarget().equals(s.getCurrentVertex()) ? e.getSource() : e.getTarget(),
-                   vertexTime, visited);
+                    vertexTime, visited);
             children.add(state);
             childFather.put(state, s);
             pathWeight.put(state, pathWeight.get(s) + e.getWeight());
@@ -129,7 +126,11 @@ public class AStarAgent extends Agent {
 
     @Override
     public Action processNextAction(Perception perception) {
-
+        if ((currentPath == null || currentPath.size() == 0) && (this.pathStates == null || this.pathStates.size() == 0)) {
+            State current = this.state;
+            this.AStar();
+            this.state = current;
+        }
         if (currentPath == null || currentPath.size() == 0) {
             Graph<Vertex, Edge> g = EnvironmentState.getInstance().getGraph();
             DijkstraShortestPath<Vertex, Edge> dijkstra = new DijkstraShortestPath<>(g);
@@ -146,16 +147,16 @@ public class AStarAgent extends Agent {
         }
         Edge e = currentPath.get(index);
         currentPath.remove(e);
-        return new GraphMovementAction(e.getTarget().equals(state.getCurrentVertex()) ? e.getSource() : e.getTarget());
+        return new GraphMovementAction(e.getTarget().equals(state.getCurrentVertex()) ? e.getSource() : e.getTarget(), this.state);
     }
 
     @Override
     public void updateState(Action action) {
         Vertex v = ((GraphMovementAction)action).getToVertex();
+        State s = ((GraphMovementAction)action).getState();
         v.setNumberOfPeople(0);
         this.getSeq().add(action);
-        this.state = new State(v, vertexTime);
+        this.state = new State(v, vertexTime, new ArrayList<>(s.getVisited()));
     }
-
 
 }

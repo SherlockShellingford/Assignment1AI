@@ -1,6 +1,6 @@
 package heuristics;
 
-import agents.State;
+import agents.state.State;
 import datatypes.Edge;
 import datatypes.Vertex;
 import org.jgrapht.Graph;

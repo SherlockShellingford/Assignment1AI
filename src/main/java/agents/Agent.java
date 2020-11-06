@@ -1,6 +1,7 @@
 package agents;
 
 import agents.goals.Goal;
+import agents.state.State;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,6 +1,6 @@
 package heuristics;
 
-import agents.State;
+import agents.state.State;
 import datatypes.Vertex;
 
 import java.util.Map;

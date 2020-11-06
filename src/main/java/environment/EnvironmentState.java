@@ -16,6 +16,7 @@ public class EnvironmentState {
     private List<Agent> agents;
 
     private Graph<Vertex, Edge> graph;
+    private Vertex init;
 
     private EnvironmentState() {
         agents = new ArrayList<>();
@@ -50,5 +51,13 @@ public class EnvironmentState {
 
     public void setGraph(Graph<Vertex, Edge> graph) {
         this.graph = graph;
+    }
+
+    public Vertex getInit() {
+        return init;
+    }
+
+    public void setInit(Vertex init) {
+        this.init = init;
     }
 }
