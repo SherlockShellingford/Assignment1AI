@@ -68,7 +68,7 @@ public class AStarAgent extends Agent {
             }
             double fState1 = f(pathWeight.getOrDefault(state1, 0.0), this.heuristic.h(this.state, state1, state1.getVertexTime()));
             double fState2 = f(pathWeight.getOrDefault(state2, 0.0), this.heuristic.h(this.state, state2, state2.getVertexTime()));
-            if ( fState1 > fState2) return 1;
+            if (fState1 > fState2) return 1;
             else if (fState2 > fState1) return -1;
             return 0;
         });
@@ -94,28 +94,36 @@ public class AStarAgent extends Agent {
             }
             closed.add(this.state);
             open.addAll(getChildren(this.state, childFather, pathWeight));
+            for (State s : open) {
+                System.out.println(s.getCurrentVertex().getId() + " - " + this.state.getCurrentVertex().getId() + " h=" + this.heuristic.h(this.state, s, s.getVertexTime()));
+            }
+            System.out.println("====================");
             count++;
         }
         while (true);
-        if (closed != null) {
-            pathStates = new ArrayList<>(closed);
-            this.state = pathStates.remove(0);
+        pathStates = new ArrayList<>();
+        pathStates.add(this.state);
+        while (!this.state.equals(childFather.get(this.state))) {
+            pathStates.add(childFather.get(this.state));
+            this.state = childFather.get(this.state);
         }
-        else {
-            this.failed = true;
-        }
+        Collections.reverse(pathStates);
+        this.state = pathStates.remove(0);
     }
 
     private List<State> getChildren(State s, Map<State, State> childFather, Map<State, Double> pathWeight) {
         Set<Edge> edges = internal.edgesOf(s.getCurrentVertex());
         List<State> children = new ArrayList<>();
+        for (Integer id : vertexTime.keySet()) {
+            vertexTime.put(id, vertexTime.get(id) + 1);
+        }
         for (Edge e : edges) {
-            Long time = vertexTime.getOrDefault(e.getSource().getId(), 1l);
-            vertexTime.put(e.getSource().getId(), time++);
+            Vertex c = e.getSource().equals(s.getCurrentVertex()) ? e.getTarget() : e.getSource();
+            vertexTime.put(c.getId(), 1l);
             List<Vertex> visited = new ArrayList<>(s.getVisited());
             visited.add(e.getTarget().equals(s.getCurrentVertex()) ? e.getSource() : e.getTarget());
             State state = new State(e.getTarget().equals(s.getCurrentVertex()) ? e.getSource() : e.getTarget(),
-                   vertexTime, visited);
+                    vertexTime, visited);
             children.add(state);
             childFather.put(state, s);
             pathWeight.put(state, pathWeight.get(s) + e.getWeight());
@@ -138,8 +146,8 @@ public class AStarAgent extends Agent {
             currentPath = new ArrayList<>(path.getEdgeList());
         }
         int index = 0;
-        for (int i=0;i<currentPath.size();i++) {
-            if (currentPath.get(i).getSource().equals(state.getCurrentVertex())) {
+        for (int i = 0; i < currentPath.size(); i++) {
+            if (currentPath.get(i).getSource().equals(state.getCurrentVertex()) || currentPath.get(i).getTarget().equals(state.getCurrentVertex())) {
                 index = i;
                 break;
             }
@@ -151,7 +159,7 @@ public class AStarAgent extends Agent {
 
     @Override
     public void updateState(Action action) {
-        Vertex v = ((GraphMovementAction)action).getToVertex();
+        Vertex v = ((GraphMovementAction) action).getToVertex();
         v.setNumberOfPeople(0);
         this.getSeq().add(action);
         this.state = new State(v, vertexTime);

@@ -49,18 +49,22 @@ public class GreedyHeuristicAgent extends Agent {
         }
         this.heuristic = new MSTHeuristic(internal);
         this.state = new State(init, vertexTime);
+        for (Vertex v : this.internal.vertexSet()) {
+            Long time = vertexTime.getOrDefault(v.getId(), 1l);
+            vertexTime.put(v.getId(), time++);
+        }
     }
 
     @Override
     public Action processNextAction(Perception perception) {
         if (currentPath == null || currentPath.size() == 0) {
+            for (Vertex v : this.internal.vertexSet()) {
+                Long time = vertexTime.getOrDefault(v.getId(), 1l);
+                vertexTime.put(v.getId(), time++);
+            }
             Edge edge = null;
             double min = Double.POSITIVE_INFINITY;
             for (Edge e : this.internal.edgesOf(state.getCurrentVertex())) {
-                Long time = vertexTime.getOrDefault(e.getSource().getId(), 1l);
-                vertexTime.put(e.getSource().getId(), time++);
-                time = vertexTime.getOrDefault(e.getTarget().getId(), 1l);
-                vertexTime.put(e.getTarget().getId(), time++);
                 double h = heuristic.h(e.getSource(), e.getTarget(), vertexTime);
                 if (h < min) {
                     edge = e;
@@ -71,13 +75,15 @@ public class GreedyHeuristicAgent extends Agent {
         }
         int index = 0;
         for (int i=0;i<currentPath.size();i++) {
-            if (currentPath.get(i).getSource().equals(state.getCurrentVertex())) {
+            if (currentPath.get(i).getSource().equals(state.getCurrentVertex()) || currentPath.get(i).getTarget().equals(state.getCurrentVertex())) {
                 index = i;
                 break;
             }
         }
         Edge e = currentPath.get(index);
         currentPath.remove(e);
+        Vertex v = e.getTarget().equals(state.getCurrentVertex()) ? e.getSource() : e.getTarget();
+        vertexTime.put(v.getId(), 1l);
         return new GraphMovementAction(e.getTarget().equals(state.getCurrentVertex()) ? e.getSource() : e.getTarget());
     }
 

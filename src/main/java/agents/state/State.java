@@ -58,18 +58,18 @@ public class State {
                 "\n}";
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        State state = (State) o;
-        return Objects.equals(currentVertex, state.currentVertex) &&
-                Objects.equals(vertexTime, state.vertexTime) &&
-                Objects.equals(visited, state.visited);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        State state = (State) o;
+//        return Objects.equals(currentVertex, state.currentVertex) &&
+//                Objects.equals(vertexTime, state.vertexTime) &&
+//                Objects.equals(visited, state.visited);
+//    }
 
-    @Override
-    public int hashCode() {
-        return currentVertex.getId();
-    }
+//    @Override
+//    public int hashCode() {
+//        return currentVertex.getId();
+//    }
 }
