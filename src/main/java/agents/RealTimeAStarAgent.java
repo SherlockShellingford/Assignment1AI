@@ -16,7 +16,7 @@ import java.util.*;
 
 public class RealTimeAStarAgent extends Agent {
 
-    private static final int MAX_TIME = 10;
+    private static final int MAX_EXP = 10;
 
     private Graph<Vertex, Edge> internal;
     private Map<Integer, Long> vertexTime = new HashMap<>();
@@ -60,12 +60,6 @@ public class RealTimeAStarAgent extends Agent {
         childFather.put(this.state, this.state);
         Map<State, Double> pathWeight = new HashMap<>();
         PriorityQueue<State> open = new PriorityQueue<>((state1, state2) -> {
-//            if (childFather.get(state1) == null) {
-//                return 1;
-//            }
-//            if (childFather.get(state2) == null) {
-//                return -1;
-//            }
             double fState1 = f(pathWeight.getOrDefault(state1, 0.0), this.heuristic.h(this.state, state1, state1.getVertexTime()));
             double fState2 = f(pathWeight.getOrDefault(state2, 0.0), this.heuristic.h(this.state, state2, state2.getVertexTime()));
             if ( fState1 > fState2) return 1;
@@ -86,7 +80,7 @@ public class RealTimeAStarAgent extends Agent {
             if (this.state.getVisited().size() == internal.vertexSet().size()) {
                 break;
             }
-            if (count >= MAX_TIME) {
+            if (count >= MAX_EXP) {
                 break;
             }
             closed.add(this.state);
