@@ -16,7 +16,7 @@ import java.util.*;
 
 public class RealTimeAStarAgent extends Agent {
 
-    private static final int MAX_EXP = 11;
+    private static final int MAX_EXP = 10;
 
     private Graph<Vertex, Edge> internal;
     private Map<Integer, Long> vertexTime = new HashMap<>();
@@ -97,7 +97,6 @@ public class RealTimeAStarAgent extends Agent {
         while (!this.state.equals(childFather.get(this.state))) {
             pathStates.add(childFather.get(this.state));
             this.state = childFather.get(this.state);
-            System.out.println(this.state.getCurrentVertex().getId());
         }
         Collections.reverse(pathStates);
         this.state = pathStates.remove(0);

@@ -1,0 +1,23 @@
+{
+    "timeout": 20.0,
+    "nodes": [
+        { "id": 1,  "numberOfPeople": 0, "comment":  "Vertex 1"},
+        { "id": 2, "numberOfPeople": 1, "comment":  "Vertex 2, initially contains 1 person to be rescued"},
+        { "id": 3, "numberOfPeople": 2, "comment":  "Vertex 3, initially contains 2 person to be rescued" },
+        { "id": 4, "numberOfPeople": 4, "comment":  "Vertex 4, initially contains 4 persons to be rescued" },
+        { "id": 5, "numberOfPeople": 5, "comment":  "Vertex 5, initially contains 5 person to be rescued" },
+        { "id": 6, "numberOfPeople": 0, "comment":  "Vertex 6" },
+        { "id": 7, "numberOfPeople": 6, "comment":  "Vertex 7, initially contains 6 persons to be rescued" }
+    ],
+    "edges": [
+        { "id":1, "source": 1, "target": 3, "weight": 2, "comment": "Edge 1 from vertex 1 to vertex 3, weight 2" },
+        { "id":2, "source": 1, "target": 2, "weight": 3, "comment": "Edge 2 from vertex 1 to vertex 2, weight 3" },
+        { "id":3, "source": 3, "target": 2, "weight": 4, "comment": "Edge 3 from vertex 3 to vertex 2, weight 4" },
+        { "id":4, "source": 1, "target": 6, "weight": 1, "comment": "Edge 4 from vertex 1 to vertex 6, weight 1" },
+        { "id":5, "source": 1, "target": 7, "weight": 5, "comment": "Edge 5 from vertex 1 to vertex 7, weight 5" },
+        { "id":6, "source": 3, "target": 6, "weight": 1, "comment": "Edge 6 from vertex 3 to vertex 6, weight 1" },
+        { "id":7, "source": 3, "target": 4, "weight": 7, "comment": "Edge 7 from vertex 3 to vertex 4, weight 7" },
+        { "id":8, "source": 4, "target": 5, "weight": 4, "comment": "Edge 8 from vertex 4 to vertex 5, weight 4" },
+        { "id":9, "source": 7, "target": 4, "weight": 10, "comment": "Edge 10 from vertex 7 to vertex 4, weight 10" }
+    ]
+}

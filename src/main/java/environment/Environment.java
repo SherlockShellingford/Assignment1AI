@@ -28,10 +28,10 @@ public class Environment {
         System.out.println("==========================");
         System.out.println("Welcome to the world of AI");
         System.out.println("==========================");
-//        WorldLoader loader = new WorldLoader("/Users/igorvinokur/Development/Dev/Study/Assignment1AI/src/main/resources/graph1.json");
-//        EnvironmentState.getInstance().setGraph(loader.loadWorld());
+        WorldLoader loader = new WorldLoader("/Users/igorvinokur/Development/Dev/Study/Assignment1AI/src/main/resources/graph-test.json");
+        EnvironmentState.getInstance().setGraph(loader.loadWorld());
 //        EnvironmentState.getInstance().setGraph(getGraph());
-        EnvironmentState.getInstance().setGraph(getGraph1());
+//        EnvironmentState.getInstance().setGraph(getGraph1());
         while (!shutdown) {
             printMenu("Main", MenuOptions.MainMenuOptions.values());
             MenuOptions.MenuAction choice = getUserInput(MenuOptions.MainMenuOptions.values());
